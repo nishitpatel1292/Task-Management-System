@@ -1,0 +1,10 @@
+{
+  "name": "task-management-system",
+  "version": "1.0.0",
+  "description": "Task management system",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nishit Patel ",
+  "license": "ISC"
+}
