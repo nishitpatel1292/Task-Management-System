@@ -91,7 +91,7 @@ export default function DashboardPage() {
                     className="h-[24px] w-[24px]"
                   />
                 }
-                className="min-w-[136px] gap-2 font-medium !shadow-xs"
+                className="min-w-[136px] h-[40px] gap-2 font-medium !shadow-xs border-none"
               >
                 Create new
               </Button>
