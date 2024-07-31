@@ -1,19 +1,34 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
-// import cors from 'cors';
-
+import { connection } from './src/config/database.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import router from './src/routes/router.js'
 const app = express();
+dotenv.config()
 
+// database connection
+connection();
 
-// app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000', 
+  optionsSuccessStatus: 200 
+};
+
+app.use(cors(corsOptions));
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.use('/api/user',router)
 
 app.get('/api/data', (req: Request, res: Response) => {
   res.json({ message: 'Hello from the server!' });
 });
 
-app.get('*', (req: Request, res: Response) => {
-  res.end('hello');
-});
+// app.get('*', (req: Request, res: Response) => {
+//   res.end('hello');
+// });
 
 
 const port = process.env.PORT || 5000;

@@ -5,15 +5,16 @@ import { Schema, model } from "mongoose";
 import {createHmac, randomBytes} from 'crypto';
 
 
-interface Iuser extends Document{
-    fullName: string;
+export interface Iuser extends Document{
+    username: string;
     email: string;
     salt: string;
     password: string;
-    profileImage: 'USER'| 'ADMIN';
+    role: 'USER'| 'ADMIN';
+    profileImg: string;
 }
 const userSchema = new Schema<Iuser>({
-    fullName:{
+    username:{
         type: String,
         required: true,
     },
@@ -22,41 +23,15 @@ const userSchema = new Schema<Iuser>({
         required: true,
         unique: true,
     },
-    salt:{
-        type: String,
-        required: true,
-    },
     password:{
         type: String,
         required: true
-    },
-    profileImage:{
-        type: String,
-        enum: ['USER','ADMIN'],
-        default: 'USER',
     }
 
 }, {timestamps: true}
 );
 
-userSchema.pre<Iuser>('save', function (next) {
-    const user = this as Iuser;
 
-    if(!user.isModified('password')) return next();
 
-    const salt = randomBytes(16).toString();
+export const User = model('User',userSchema)
 
-    const hashedPassword = createHmac('sha256',salt)
-        .update(user.password)
-        .digest('hex')
-
-    this.salt = salt
-    this.password = this.password
-
-    next();
-
-})
-
-const User = model('User',userSchema)
-
-module.exports = User;
