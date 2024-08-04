@@ -1,3 +1,5 @@
+
+import withAuth from "@/utils/withAuth";
 import { Button, Img } from "../../components";
 import TaskManager from "../../components/TaskManager";
 import React, { Suspense } from "react";
@@ -41,7 +43,7 @@ const taskProgressList = [
   }
 ];
 
-export default function DashboardSection() {
+const DashboardSection = () => {
   return (
     <>
       {/* dashboard section */}
@@ -61,3 +63,5 @@ export default function DashboardSection() {
     </>
   );
 }
+
+export default withAuth(DashboardSection);
